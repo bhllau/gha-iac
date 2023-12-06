@@ -2,19 +2,11 @@ name: iac
 description: IAC provionsiong tools including terraform, awscli, kubectl, helm, etc
 inputs:
   workdir:
-    default: ./
-  github_token:
-    required: true
-  aws_access_key_id:
-    required: true
-  aws_secret_access_key:
-    required: true
-  aws_region:
-    required: true
-  tf_cli_args_init:
-    required: false
-  tf_modules_restore_path:
-    required: false
+    default: .
+  envfile:
+    default: .env
+  envblock:
+    default: null
   command:
     required: true
 outputs:
@@ -25,11 +17,7 @@ runs:
   image: Dockerfile
   args:
     - ${{ inputs.workdir }}
-    - ${{ inputs.github_token }}
-    - ${{ inputs.aws_access_key_id }}
-    - ${{ inputs.aws_secret_access_key }}
-    - ${{ inputs.aws_region }}
-    - ${{ inputs.tf_cli_args_init }}
-    - ${{ inputs.tf_modules_restore_path }}
+    - ${{ inputs.envfile }}
+    - ${{ inputs.envblock }}
     - ${{ inputs.command }}
 
