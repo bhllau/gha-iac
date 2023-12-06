@@ -13,6 +13,8 @@ inputs:
     required: true
   tf_cli_args_init:
     required: false
+  tf_modules_restore_path:
+    required: false
   command:
     required: true
 outputs:
@@ -28,5 +30,6 @@ runs:
     - ${{ inputs.aws_secret_access_key }}
     - ${{ inputs.aws_region }}
     - ${{ inputs.tf_cli_args_init }}
+    - ${{ inputs.tf_modules_restore_path }}
     - ${{ inputs.command }}
 
