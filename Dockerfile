@@ -1,10 +1,7 @@
 FROM hashicorp/terraform:1.6.2
 
-
-# Ref:
 # * https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 # * https://v3-1-0.helm.sh/docs/intro/install/
-
 ARG BUILD_ARCH=amd64
 ARG KUBECTL_VERSION_URL=https://dl.k8s.io/release/stable.txt
 ARG HELM_VERSION=v3.13.2

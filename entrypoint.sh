@@ -1,13 +1,4 @@
 #!/bin/sh
-
-## params (.env)
-# WORKDIR=
-# GITHUB_TOKEN=
-# AWS_ACCESS_KEY_ID=
-# AWS_SECRET_ACCESS_KEY=
-# AWS_REGION=
-# AWS_DEFAULT_REGION=
-# TF_CLI_ARGS_init=
 # TF_MODULES_RESTORE_PATH=
 
 setup() {
