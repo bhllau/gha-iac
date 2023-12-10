@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # TF_MODULES_RESTORE_PATH=
 
 setup() {
