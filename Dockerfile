@@ -8,7 +8,7 @@ ARG HELM_VERSION=v3.13.2
 
 RUN \
 	apk update \
-	&& apk add curl jq aws-cli \
+	&& apk add bash curl jq aws-cli \
 	&& curl -L -o /usr/local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s ${KUBECTL_VERSION_URL})/bin/linux/${BUILD_ARCH}/kubectl" \
 	&& chmod +x /usr/local/bin/kubectl \
 	&& curl -L https://get.helm.sh/helm-${HELM_VERSION}-linux-${BUILD_ARCH}.tar.gz | tar -xvzf - linux-${BUILD_ARCH}/helm -C /tmp && mv /tmp/linux-${BUILD_ARCH}/helm /usr/local/bin/ \
