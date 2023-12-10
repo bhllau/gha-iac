@@ -11,15 +11,10 @@ setup() {
 	fi
 	cd "$workdir"
 
-	local exportscript=$(mktemp)
-	if [ -f "$envfile" ]; then
-		cat "$envfile" | grep -v "^\s*$" | grep -v "^\s*#.*" | sed 's:^:export :g' >> "$exportscript"
-	fi
-	if [ -n "$envblock" ]; then
-		echo "$envblock" | grep -v "^\s*$" | grep -v "^\s*#.*" | sed 's:^:export :g' >> "$exportscript"
-	fi
-	source "$exportscript"
-	rm -f "$exportscript"
+	set -a
+	[ -f "$envfile" ] && source "$envfile"
+	[ -n "$envblock" ] && eval "$envblock"
+	set +a
 
 	create_gitconfig
 	if [ -n "$TF_CLI_ARGS_init" ]; then
@@ -65,21 +60,26 @@ save_tf_modules() {
 	fi
 }
 
-parse_and_run_command() {
-	echo "--> Executing '$COMMAND'..." >&2
-	$COMMAND
-}
-
 main() {
 	local workdir=$1; shift
 	local envfile=$1; shift
 	local envblock=$1; shift
-	local command=$1; shift
+	local command=$@; shift
+
 	setup "$workdir" "$envfile" "$envblock"
-	echo "--> Executing '$command'..." >&2
-	$command
-	ecode=$?
+	local ecode
+	if [ -n "$command" ]; then
+		echo "--> Executing '$command'..." >&2
+		if [ "${#command[@]}" -lt 1 ]; then
+			"${command[@]}"
+			ecode=$?
+		else
+			${command[1]}
+			ecode=$?
+		fi
+	fi
 	teardown
+
 	return $ecode
 }
 
