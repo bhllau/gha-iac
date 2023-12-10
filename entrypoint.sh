@@ -70,11 +70,11 @@ main() {
 	local ecode
 	if [ -n "$command" ]; then
 		echo "--> Executing '$command'..." >&2
-		if [ "${#command[@]}" -lt 1 ]; then
+		if [ "${#command[@]}" -gt 1 ]; then
 			"${command[@]}"
 			ecode=$?
 		else
-			${command[1]}
+			$command
 			ecode=$?
 		fi
 	fi
